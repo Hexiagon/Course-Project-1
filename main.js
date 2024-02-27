@@ -3,7 +3,8 @@ let NoteArray = [];
 let NoteObject = function (pName, pType, pAddress, pStar, pURL){
     this.Name= pName;
     this.Type= pType;
-    this.ID= NoteArray.length + 1;
+    //this.ID= NoteArray.length + 1;
+    this.ID= Math.random().toString(16).slice(5)
     this.Address = pAddress;
     this.Star = pStar;
     this.URL= pURL;
@@ -52,37 +53,60 @@ document.addEventListener("DOMContentLoaded", function(){
     $(document).on("pagebeforeshow", "#list", function(event){ //jQuery
         createList();
     });
+
+    $(document).on("pagebeforeshow", "#details", function(event){
+        let localID= localStorage.getItem("parm");
+        let pointer= GetObjectPointer(localID);
+        NoteArray= JSON.parse(localStorage.getItem("NoteArray"));
+        document.getElementById("resturantName").innerHTML= "Name: "+NoteArray[pointer].Name;
+        document.getElementById("resturantType").innerHTML= "Type: "+NoteArray[pointer].Type;
+        document.getElementById("resturantAddress").innerHTML= "Address: "+NoteArray[pointer].Address;
+        document.getElementById("resturantStar").innerHTML= "Star-rating: "+NoteArray[pointer].Star;
+        document.getElementById("resturantURL").innerHTML="URL: "+NoteArray[pointer].URL;
+    });
+    document.getElementById("r.Website").addEventListener("click", function(){
+        openWebsite(localStorage.getItem("parm"));
+    });
 });
+
+function GetObjectPointer(whichID){
+    for(i=0;i<NoteArray.length;i++){
+        if(NoteArray[i].ID==whichID){
+            return i;
+        }
+    }
+}
 
 //create the function to add list 
 function createList(){
     const theTable = document.getElementById('tableID');
     theTable.innerHTML="";
-
     //add the headings
-    theTable.innerHTML ="<thead><th>ID</th><th>Name</th><th>Type</th><th>Address</th><th>Rating</th></thead>";
-
+    //theTable.innerHTML ="<thead><th>ID</th><th>Name</th><th>Type</th><th>Address</th><th>Rating</th></thead>";
+    theTable.innerHTML ="<thead><th>ID</th><th>Name</th><th>Type</th></thead>";
     //add the row
     for(oneRts of NoteArray){
         const newRow = document.createElement("tr");
+        newRow.setAttribute("data-parm",oneRts.ID);
         const tdID = document.createElement("td");
+        tdID.setAttribute("data-parm",oneRts.ID);
         const tdName = document.createElement("td");
+        tdName.setAttribute("data-parm",oneRts.ID);
         const tdType = document.createElement("td");
-        const tdAddress = document.createElement("td");
-        const tdRating = document.createElement("td");
+        //const tdAddress = document.createElement("td");
+        //const tdRating = document.createElement("td");
         tdID.textContent = oneRts.ID;
         tdName.textContent = oneRts.Name;
         tdType.textContent = oneRts.Type;
-        tdAddress.textContent = oneRts.Address;
-        tdRating.textContent = oneRts.Star;
+        //tdAddress.textContent = oneRts.Address;
+        //tdRating.textContent = oneRts.Star;
         newRow.appendChild(tdID);
         newRow.appendChild(tdName);
         newRow.appendChild(tdType);
-        newRow.appendChild(tdAddress);
-        newRow.appendChild(tdRating);
+        //newRow.appendChild(tdAddress);
+        //newRow.appendChild(tdRating);
         theTable.appendChild(newRow);
     }
-
     //add row click event handlers
     var table = document.getElementById("tableID");
     var rows = table.getElementsByTagName("tr");
@@ -92,9 +116,14 @@ function createList(){
             function(row)
             {
                 return function() {
-                    var cell = row.getElementsByTagName("td")[0];
-                    var whichID = cell.innerHTML;
-                    openWebsite(whichID);
+                    //var cell = row.getElementsByTagName("td")[0];
+                    //var whichID = cell.innerHTML;
+                    //openWebsite(whichID);
+                    var parm=this.getAttribute("data-parm");
+                    localStorage.setItem('parm',parm);
+                    let stringMovieArray = JSON.stringify(NoteArray);
+                    localStorage.setItem('NoteArray', stringMovieArray);
+                    document.location.href="index.html#details";
                 };
             };
         currentRow.onclick = createClickHandler(currentRow);

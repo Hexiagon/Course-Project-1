@@ -43,7 +43,7 @@
      <!--start page 2: Add Favorite Restaurants-->
      <div data-role="page" id="add">
         <div data-role="header" data-theme="a">
-            <h1>Add your Favorite Resturant</h1>
+            <h3>Add your Favorite Resturant</h3>
             <div data-role="navbar" data-theme="a">
                 <ul>
                     <li><a href="#home">Home Page</a></li>
@@ -99,7 +99,7 @@
     <!--start page 3: Favorite Restaurant List-->
     <div data-role="page" id="list">
         <div data-role="header" data-theme="a">
-            <h1>My Favorite Restaurants List</h1>
+            <h3>My Favorite Restaurants List</h3>
             <div data-role="navbar" data-theme="a">
                 <ul>
                     <li><a href="#home">Home Page</a></li>
@@ -119,7 +119,32 @@
         </div>
     </div>
     <!--end page 3-->
-
+    <div data-role="page" id="details">
+        <div data-role="header" data-theme="a">
+            <h3>My Favorite Restaurant Details</h3>
+            <div data-role="navbar" data-theme="a">
+                <ul>
+                    <li><a href="#home">Home Page</a></li>
+                    <li><a href="#list">Favorite Resturants List Notes</a></li>
+                    <li><a href="#add" >Add your Favorite Resturant</a></li>
+                </ul>
+            </div>
+            
+            <br><br>
+        </div>
+        <div data-role="content" data-theme="a">
+            <p>Here is my Favorite Resturant details:</p>
+            <p id="resturantName"></p>
+            <p id="resturantType"></p>
+            <p id="resturantAddress"></p>
+            <p id="resturantStar"></p>
+            <p id="resturantURL" hidden></p>
+            <input type="button" value="Website" id="r.Website">
+        </div>
+        <div data-role="footer" data-theme="a">
+            <h3>Copyright 2024 by Hexiagon and Anh</h3>
+        </div>
+    </div>
    
 </body>
 </html>
