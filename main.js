@@ -56,8 +56,8 @@ document.addEventListener("DOMContentLoaded", function(){
 
     $(document).on("pagebeforeshow", "#details", function(event){
         let localID= localStorage.getItem("parm");
-        let pointer= GetObjectPointer(localID);
         NoteArray= JSON.parse(localStorage.getItem("NoteArray"));
+        let pointer= GetObjectPointer(localID);
         document.getElementById("resturantName").innerHTML= "Name: "+NoteArray[pointer].Name;
         document.getElementById("resturantType").innerHTML= "Type: "+NoteArray[pointer].Type;
         document.getElementById("resturantAddress").innerHTML= "Address: "+NoteArray[pointer].Address;
